@@ -4,14 +4,17 @@ import (
 	"html"
 	"html/template"
 	"log"
+	"net"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
 
 type tmplFill struct {
-	Title string
+	Title    string
+	SubTitle string
 }
 
 func main() {
@@ -36,6 +39,27 @@ func main() {
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("template/index.html"))
-	fill := tmplFill{Title: html.EscapeString(r.Host)}
-	tmpl.Execute(w, fill)
+	tmpl.Execute(w, resolveFill(r.Host))
+}
+
+func resolveFill(host string) tmplFill {
+	records, err := net.LookupTXT(host)
+
+	fill := tmplFill{Title: html.EscapeString(host), SubTitle: ""}
+	if err != nil {
+		return fill
+	}
+
+	for _, record := range records {
+
+		if strings.HasPrefix(record, "dls_title=") {
+			fill.Title = html.EscapeString(strings.Replace(record, "dls_title=", "", 1))
+		}
+
+		if strings.HasPrefix(record, "dls_subtitle=") {
+			fill.SubTitle = html.EscapeString(strings.Replace(record, "dls_subtitle=", "", 1))
+		}
+	}
+
+	return fill
 }
