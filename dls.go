@@ -34,6 +34,7 @@ func main() {
 	http.Handle("/img/", http.FileServer(http.Dir("static")))
 	http.Handle("/css/", http.FileServer(http.Dir("static")))
 
+	log.Println("Running...")
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 

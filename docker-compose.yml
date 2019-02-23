@@ -1,0 +1,8 @@
+version: '3'
+services:
+  dlsweb:
+    image: harveytoro/domainlandingsystem:latest
+    ports: 
+      - "80:3030"
+    environment:
+      dls_port: 3030
