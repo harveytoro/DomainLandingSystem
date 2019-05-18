@@ -20,3 +20,13 @@ Type: TXT Name:@ Value: dls_title=Title For page
 
 Type: TXT Name:@ Value: dls_subtitle=The sub title
 ```
+
+- Adding a countdown to the page. Use date in format: 2019-01-01T00:00:00Z. Depending on where you want the countdown to show place the value {{Countdown}} as the text for the title or subtitle
+
+```
+TYPE: TXT Name:@ Value: dls_countdown=2019-01-01T00:00:00Z
+
+Type: TXT Name:@ Value: dls_title={{Countdown}}
+
+Type: TXT Name:@ Value: dls_subtitle=COUNTDOWN TO GO LIVE
+```

@@ -23,15 +23,45 @@
     <!-- Theme CSS -->
     <link href="css/site.css" rel="stylesheet">
 
+    {{if .BackgroundColor}} 
+    <style>
+
+body {
+ overflow-x: hidden;
+ font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+ height: 100%;
+
+ background-image: none;
+background-size: auto, cover;
+
+background-color:{{.BackgroundColor}};
+}
+    </style>
+    {{end}}
+
 </head>
 <body id="page-top" class="index">
     <header>
         <div class="container">
             <div class="intro-text">            
-                <div class="intro-heading">{{.Title}}</div>
-                <div class="intro-lead-in">{{.SubTitle}}</div>
+                <div id="container-title" class="intro-heading">{{.Title}}</div>
+                <div id="container-subtitle" class="intro-lead-in">{{.SubTitle}}</div>
             </div>
         </div>
     </header>
+
+{{if .Countdown}} 
+<script src="vendor/countdown.min.js"></script>
+<script>
+
+function show(){
+    var countdownValue = countdown( new Date("{{.Countdown}}"), null);
+    document.getElementById('{{.CountdownID}}').innerHTML = countdownValue.toHTML('strong', null);
+    requestAnimationFrame(show);
+}
+show();
+</script>
+{{end}}
+
 </body>
 </html>

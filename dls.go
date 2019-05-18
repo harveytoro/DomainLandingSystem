@@ -13,8 +13,11 @@ import (
 )
 
 type tmplFill struct {
-	Title    string
-	SubTitle string
+	Title           string
+	SubTitle        string
+	BackgroundColor string
+	Countdown       string
+	CountdownID     string
 }
 
 func main() {
@@ -59,6 +62,19 @@ func resolveFill(host string) tmplFill {
 
 		if strings.HasPrefix(record, "dls_subtitle=") {
 			fill.SubTitle = html.EscapeString(strings.Replace(record, "dls_subtitle=", "", 1))
+		}
+
+		if strings.HasPrefix(record, "dls_backgroundcolor=") {
+			fill.BackgroundColor = html.EscapeString(strings.Replace(record, "dls_backgroundcolor=", "", 1))
+		}
+
+		if strings.HasPrefix(record, "dls_countdown=") {
+			fill.Countdown = html.EscapeString(strings.Replace(record, "dls_countdown=", "", 1))
+			if fill.Title == "{{Countdown}}" {
+				fill.CountdownID = "container-title"
+			} else if fill.SubTitle == "{{Countdown}}" {
+				fill.CountdownID = "container-subtitle"
+			}
 		}
 	}
 

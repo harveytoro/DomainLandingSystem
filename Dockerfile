@@ -14,6 +14,7 @@ FROM gcr.io/distroless/base
 WORKDIR /root/
 COPY --from=0 /go/src/app/dlsapp .
 COPY --from=0 /go/src/app/template/index.html ./template/index.html
+COPY --from=0 /go/src/app/static/vendor/countdown.min.js ./static/vendor/countdown.min.js
 COPY --from=0 /go/src/app/static/vendor/bootstrap/css/ ./static/vendor/bootstrap/css/
 COPY --from=0 /go/src/app/static/vendor/bootstrap/fonts/ ./static/vendor/bootstrap/fonts/
 COPY --from=0 /go/src/app/static/vendor/bootstrap/js/ ./statuc/vendor/bootstrap/js/
