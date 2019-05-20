@@ -53,13 +53,14 @@ background-color:{{.BackgroundColor}};
 {{if .Countdown}} 
 <script src="vendor/countdown.min.js"></script>
 <script>
-
-function show(){
-    var countdownValue = countdown( new Date("{{.Countdown}}"), null);
-    document.getElementById('{{.CountdownID}}').innerHTML = countdownValue.toHTML('strong', null);
-    requestAnimationFrame(show);
-}
-show();
+document.addEventListener('DOMContentLoaded', function(event) {
+    function show(){
+        var countdownValue = countdown( new Date("{{.Countdown}}"), null);
+        document.getElementById('{{.CountdownID}}').innerHTML = countdownValue.toHTML('strong', null);
+        requestAnimationFrame(show);
+    }
+    show();
+});
 </script>
 {{end}}
 

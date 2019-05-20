@@ -71,8 +71,10 @@ func resolveFill(host string) tmplFill {
 		if strings.HasPrefix(record, "dls_countdown=") {
 			fill.Countdown = html.EscapeString(strings.Replace(record, "dls_countdown=", "", 1))
 			if fill.Title == "{{Countdown}}" {
+				fill.Title = ""
 				fill.CountdownID = "container-title"
 			} else if fill.SubTitle == "{{Countdown}}" {
+				fill.SubTitle = ""
 				fill.CountdownID = "container-subtitle"
 			}
 		}
